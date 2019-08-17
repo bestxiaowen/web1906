@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>chat</title>
+    <link rel="stylesheet" type="text/css" href="http://unpkg.com/iview/dist/styles/iview.css">
+    <script type="text/javascript" src="http://vuejs.org/js/vue.min.js"></script>
+    <script type="text/javascript" src="http://unpkg.com/iview/dist/iview.min.js"></script>
+    <style>
+        .wrap {
+            width: 800px;
+            height: 600px;
+            border: 1px solid black;
+            border-radius: 5px;
+            margin: 0 auto;
+            margin-top: 100px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .head {
+            background-color: #80C7ED;
+            width: 100%;
+            height: 50px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .head span {
+            line-height: 50px;
+            cursor: default;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 3px
+        }
+
+        .body {
+            width: 100%;
+            flex: 1;
+            display: flex;
+        }
+
+        .body_left {
+            width: 150px;
+            height: 100%;
+            background-color: #E7EAED;
+            /* background-color: red; */
+        }
+
+        .body_right {
+            height: 100%;
+            flex: 1;
+            display: flex;
+        }
+
+        .body_right .content {
+            width: 80%;
+            height: 100%;
+            /* background-color: yellow; */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .body_right .qqshow {
+            flex: 1;
+            height: 100%;
+            background-color: green;
+        }
+
+
+        .head_left {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 10px;
+        }
+
+        .head_right {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 10px;
+            top: 0;
+        }
+
+        .icon {
+            margin: 0 3px;
+            background-color: #80C7ED;
+            border: none;
+        }
+
+        .person {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            cursor: default;
+            border-left: 2px solid #fff;
+        }
+
+        .person img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin: 0 15px;
+        }
+
+        .person span {
+            font-size: 16px;
+        }
+
+        .active {
+            background-color: #76B7DA;
+            border-left: 2px solid #5889A3;
+        }
+
+        .body_right .content .record {
+            width: 100%;
+            flex: 1;
+            padding: 10px;
+        }
+        .body_right .content .record img{
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .body_right .content .msg {
+            width: 100%;
+            height: 110px;
+            padding: 5px;
+            border-top: 2px solid #E7EAED;
+        }
+
+        .body_right .content .sent {
+            width: 100%;
+            height: 40px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .body_right .content .msg textarea {
+            width: 100%;
+            height: 100%;
+            padding: 3px;
+            font-size: 16px;
+        }
+
+        .coment{
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-size: 16px;
+        }
+
+        .coment img{
+            margin: 0 15px;
+        }
+
+        .coment span{
+            background-color: red;
+            display: block;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            padding: 4px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap">
+            <div class="head">
+                <div class="head_left">
+                    <i-button class="icon" size='small' icon="md-search"></i-button>
+                    <i-button class="icon" size='small' icon="md-add"></i-button>
+                    <!-- <Icon class="icon" type="ios-search" size='20' />
+                    <Icon class="icon1" type="ios-add" size='20' /> -->
+                </div>
+                <span>
+                    {{title}}
+                </span>
+                <div class="head_right">
+                    <i-button class="icon" size='small' icon="md-remove"></i-button>
+                    <i-button class="icon" size='small' icon="md-qr-scanner"></i-button>
+                    <i-button class="icon" size='small' icon="md-close"></i-button>
+
+                </div>
+            </div>
+            <div class="body">
+                <div class="body_left">
+                    <div @click='active(item)' :class="['person',{'active':item.active}]"
+                        v-for="(item, index) in chatMember" :key="index">
+                        <img :src="item.head" alt="">
+                        <span>{{item.name}}</span>
+                    </div>
+                </div>
+                <div class="body_right">
+                    <div class="content" v-for="(item, index) in chatMember" v-if='item.active' :key="index">
+                        <div class="record">
+                            <div v-for="msg in item.msg" class="coment">
+                                <span>{{msg}}</span>
+                                <img src="./略略略.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="msg">
+                            <textarea name="" id="" cols="10" rows="5" v-model="chat"></textarea>
+                        </div>
+                        <div class="sent">
+                            <div>
+                                <i-button type='default'>关闭</i-button>
+                                <i-button @click='sentmsg(item)' type='primary'>发送</i-button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="qqshow">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                chatMember: [
+                    {
+                        name: '橙子',
+                        head: './橙子.jpg',
+                        active: true,
+                        msg: []
+                    },
+                    {
+                        name: '冉老师',
+                        head: './冉老师.jpg',
+                        active: false,
+                        msg: []
+
+                    },
+                    {
+                        name: '略略略',
+                        head: './略略略.jpg',
+                        active: false,
+                        msg: []
+
+                    },
+                ],
+                chat: '',
+                title: ''
+            },
+            methods: {
+                active(i) {
+                    console.log(i.name)
+                    this.chatMember.forEach(item => {
+                        item.active = false
+                    });
+                    this.chatMember.forEach(item => {
+                        if (item.name === i.name) {
+                            item.active = true
+                        }
+                    })
+                    this.title = i.name
+                },
+                sentmsg(i) {
+                    if (this.chat === '') {
+                        this.$Notice.info({
+                            title: '提示',
+                            desc: '发送信息不能为空'
+                        })
+                    } else {
+                        i.msg.push(this.chat)
+                        this.chat = ''
+                    }
+                    console.log(i)
+                }
+            },
+            created() {
+                // this.title=''
+                this.title = this.chatMember.filter(item => {
+                    return item.active === true
+                })[0].name
+            }
+        })
+    </script>
+</body>
+
+</html>
