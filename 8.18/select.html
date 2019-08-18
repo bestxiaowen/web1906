@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        input {
+            width: 200px;
+            height: 20px;
+            padding: 0 5px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            border: 1px solid black;
+            border-top: none;
+            width: 212px;
+        }
+
+        li {
+            padding: 3px 6px;
+            margin: 0;
+            user-select: none;
+        }
+
+        .active {
+            background-color: #76B7DA;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input 
+            type="text" 
+            v-model="select" 
+            @keydown.up='up' 
+            @keydown.down='down'
+            @keydown.enter='enter'
+            @click='show=true'
+            @blur='blur(this)'
+        >
+        <div class="options">
+            <ul v-if='show'>
+                <li v-for="(item,index) in options" :class='{active:index===initIndex}' @click.capture='selectOne(item,index)'>
+                    <span>{{item}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                select: '',
+                show: false,
+                initIndex: 0,
+                options: [
+                    '张三',
+                    '李四',
+                    '王五',
+                    '老张'
+                ]
+            },
+            methods: {
+                showOptions() {
+                    this.show = !this.show
+                },
+                up() {
+                    this.initIndex--
+                    if (this.initIndex < 0) {
+                        this.initIndex = this.options.length - 1
+                    }
+                    this.select = this.options[this.initIndex]
+                },
+                down() {
+                    this.initIndex++
+                    if (this.initIndex > this.options.length - 1) {
+                        this.initIndex = 0
+                    }
+                    this.select = this.options[this.initIndex]
+                },
+                selectOne(item,i) {
+                    this.select = item
+                    this.initIndex=i
+                    this.show=false
+                },
+                // focus(){
+                //     this.show=true
+                // },
+                blur(){
+                    // console.log(this)
+                    setTimeout(() => {
+                        this.show=false
+                    }, 99);
+                },
+                enter(){
+                    this.select=this.options[this.initIndex]
+                    this.show=false
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

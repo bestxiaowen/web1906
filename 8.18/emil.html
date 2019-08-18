@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        input {
+            width: 200px;
+            height: 20px;
+            padding: 0 5px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            border: 1px solid black;
+            border-top: none;
+            width: 212px;
+        }
+
+        li {
+            padding: 3px 6px;
+            margin: 0;
+            user-select: none;
+        }
+
+        .active {
+            background-color: #76B7DA;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="select" @blur='blur(this)' @keydown.up='up' @keydown.down='down' @keydown.enter='enter'>
+        
+        <div class="options">
+            <ul>
+                <li v-for="(item,index) in options" :class='{active:index===initIndex}' @click='selectOne(item,index)'>
+                    <span>{{item}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data: {
+                initIndex: 0,
+                select: ''
+            },
+            methods: {
+                blur() {
+                    setTimeout(() => {
+                        this.show = false
+                    }, 100);
+                },
+                selectOne(item, i) {
+                    this.select = item
+                },
+                up(){
+                    this.initIndex--
+                    if(this.initIndex<0){
+                        this.initIndex=this.options.length-1
+                    }
+                },
+                down(){
+                    this.initIndex++
+                    if(this.initIndex>this.options.length-1){
+                        this.initIndex=0
+                    }
+                },
+                enter(){
+                    this.select=this.options[this.initIndex]
+                },
+                test(){
+                    console.log(this.emil)
+                    let s='11111@qq.com'
+                    let w='11111'
+                    console.log(
+                        s.search(w)
+                    )
+                }
+
+            },
+            computed: {
+                options() {
+                    if (this.select === '') return []
+                    if (/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(this.select)) return []
+                    return [
+                        this.select + '@qq.com',
+                        this.select + '@163.com',
+                        this.select + '@souhu.com',
+                        this.select + '@sina.com',
+                        this.select + '@sina.cn',
+                    ]
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
