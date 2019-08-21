@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <link rel="stylesheet" href="./table.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+        Vue.component('Table', {
+            // props:['column','data'],
+            // props: {
+            //     column: Array,
+            //     data: Array,
+            //     bgstyle:String
+            // },
+            props:['column','data'],
+            data() {
+                return {
+                    // columns:this.column,
+                    // datas:this.data
+                }
+            },
+            created() {
+                // console.log(this.columns,this.datas)  
+            },
+            template: `
+                <div>
+                    <table class='table'>
+                        <tr>
+                            <th v-for='item in column'>{{item.title}}</th>
+                        </tr>
+                        <tbody>
+                            <tr v-for='item in data'>
+                                <td v-for='items in item'>{{items}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `
+        })
+        const app = new Vue({
+            el: "#app",
+            data: {
+                column: [
+                    {
+                        title: "#",
+                        key: "id",
+                    },
+                    {
+                        title: "First Name",
+                        key: "firstName"
+                    },
+                    {
+                        title: "LastName",
+                        key: "lastName"
+                    }
+                ],
+                data: [
+                    {
+                        id: "1",
+                        firstName: "Mark",
+                        lastName: "Otto"
+                    },
+                    {
+                        id: "2",
+                        firstName: "Jacob",
+                        lastName: "Thornton"
+                    },
+                    {
+                        id: "3",
+                        firstName: "Larry",
+                        lastName: "the Bird"
+                    },
+                    {
+                        id: "4",
+                        firstName: "Larry",
+                        lastName: "the Bird"
+                    },
+                    {
+                        id: "5",
+                        firstName: "Larry",
+                        lastName: "the Bird"
+                    }
+                ],
+                bgstyle:'odd' //odd 或者even
+            },
+            template: `
+            <Table :column='column' :data='data'></Table>
+            `,
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>
+
+<!-- 1. column 设置表头的
+[
+    {
+        title: "#",
+        key: "id",
+    },
+    {
+        title: "First Name",
+        key: "firstName"
+    },
+    {
+        title: "LastName",
+        key: "lastName"
+    }
+]
+
+2. data 设置标题的数据
+
+[
+    {
+        id: "1",
+        firstName: "Mark",
+        lastName: "Otto"
+    },
+    {
+        id: "2",
+        firstName: "Jacob",
+        lastName: "Thornton"
+    },
+    {
+        id: "3",
+        firstName: "Larry",
+        lastName: "the Bird"
+    }
+] -->

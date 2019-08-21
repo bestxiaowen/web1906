@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./Page.css">
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script>
+        Vue.component('Pagination', {
+            props:{
+                pageSize:Number,
+                active:Number
+            },
+            data() {
+                return {
+                    size:this.pageSize,
+                    pageIndex:this.active
+                }
+            },
+            created() {
+                console.log(this.pageSize)  
+                console.log(this.active)  
+                console.log(typeof this.active)  
+            },
+            template: `
+            <div>
+                <button class='button button_left' @click='left'><</button>
+                <button :class="[
+                        'button',
+                        {
+                            'active':pageIndex===index+1
+                        }
+                    ]"
+                    v-for='(item,index) in size'
+                    @click='click(index)'
+                >{{item}}</button>
+                <button class='button button_right' @click='right'>></button>
+            </div>
+            `,
+            methods:{
+                click(i){
+                    this.pageIndex=i+1
+                },
+                left(){
+                    this.pageIndex--
+                    if(this.pageIndex<1) this.pageIndex=1
+                    console.log(this.pageIndex)
+                },
+                right(){
+                    this.pageIndex++
+                    if(this.pageIndex>this.size) this.pageIndex=this.size
+                    console.log(this.pageIndex)
+                },
+            }
+        })
+        const app = new Vue({
+            el: "#app",
+            data: {
+                pageSize:5
+            },
+            template: `
+            <Pagination :pageSize='pageSize' :active=1></Pagination>
+            `,
+            methods: {
+
+            },
+        })
+    </script>
+</body>
+
+</html>
