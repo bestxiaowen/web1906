@@ -39,7 +39,7 @@
                         </tr>
                         <tbody>
                             <tr v-for='item in data'>
-                                <td v-for='items in item'>{{items}}</td>
+                                <td v-for='col in column'>{{item[col.key]}}</td>
                             </tr>
                         </tbody>
                     </table>

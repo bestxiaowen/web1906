@@ -1,0 +1,71 @@
+/* #57A3F3 */
+.input{
+    width: 200px;
+    border-radius: 3px;
+    margin: 5px 0 5px 5px;
+    border: 1px solid #dcdee2;
+    display: inline;
+}
+.input::placeholder{
+    color: #dcdee2;
+}
+
+.div{
+    display: none;
+}
+
+div>span{
+    user-select: none;
+}
+
+.show{
+    display: inline-block;
+    border: 1px solid #dcdee2;
+    border-radius: 3px;
+}
+
+.icon-large{
+    width: 22px;
+    height: 22px;
+}
+
+.icon-small{
+    width: 22px;
+    height: 22px;
+}
+
+.icon-default{
+    width: 22px;
+    height: 22px;
+}
+
+.head{
+
+}
+.foot{
+
+}
+
+
+
+.input:focus{
+    box-shadow: 0 0 0 2px rgba(45,140,240,.2);
+}
+
+.input.input-large{
+    font-size: 14px;
+    padding: 6px 7px;
+    height: 22px;
+}
+
+.input.input-small{
+    font-size: 12px;
+    padding: 1px 7px;
+    height: 22px;
+}
+
+.input.input-default{
+    font-size: 12px;
+    padding: 4px 7px;
+    height: 22px;
+}

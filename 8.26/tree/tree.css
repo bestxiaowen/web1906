@@ -1,0 +1,52 @@
+#app{
+    width: 200px;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    /* overflow: hidden; */
+}
+ul li{
+    padding: 3px 0 3px 8px;
+    box-sizing: border-box;
+}
+
+li>div{
+    display: flex;
+    justify-content: space-between;
+}
+
+button{
+    cursor: pointer;
+}
+
+
+
+
+/* li{
+    display: flex;
+    justify-content: space-between;
+} */
+
+.parentBtn{
+    width: 48px;
+    height: 20px;
+    background-color: #2d8cf0;
+    border-radius: 4px;
+    border: 1px solid #dcdee2;
+}
+
+.childAdd{
+    width: 22px;
+    height: 18px;
+    border: 1px solid #dcdee2;
+    border-radius: 4px;
+}
+
+.childDel{
+    width: 22px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #dcdee2;
+}

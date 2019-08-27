@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./input.js"></script>
+    <link rel="stylesheet" href="./input.css">
+    <link rel="stylesheet" href="../font_yuudx8s2ued/iconfont.css">
+</head>
+<body>
+    <div id="app">
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    value: ''
+                }
+            },
+            methods: {
+                input(n){
+                    this.value=n
+                }
+            },
+            template:`
+            <div id='app'>
+            <I-Input clearable v-model='value' type='password' size='small' placeholder='small' /><span>{{value}}</span>
+            <I-Input v-model='value' type='email'  size='large' placeholder='large' /><span>{{value}}</span>
+            <I-Input v-model='value' placeholder='default' /><span>{{value}}</span>
+            <I-Input v-model='value' type='date' placeholder='default' /><span>{{value}}</span>
+            <input v-model='value'/>
+            </div>
+            `
+        })
+    </script>
+</body>
+</html>
