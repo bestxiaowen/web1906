@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./animate.css">
+    <link rel="stylesheet" href="./icon.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            width: 100%;
+            position: relative;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 300px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .wrap div {
+            width: inherit;
+            height: inherit;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation-duration: 1s;
+        }
+
+        span {
+            display: inline-block;
+            font-size: 40px !important;
+            position: absolute;
+        }
+
+        span.icon-left {
+            left: 0;
+            top: 40%;
+        }
+
+        span.icon-right {
+            right: 0;
+            top: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <transition-group
+            tag="div"
+            class="wrap"
+            :enter-active-class="enter"
+            :leave-active-class="leave"
+        >
+            <div v-for="(item, index) in data" :key="item" v-if='index===indexShow' :style="{
+                    'backgroundColor':item
+                }">
+            </div>
+        </transition-group>
+            <div class="wrap">
+                <span class="iconfont icon-left" @click='left'></span>
+                <span class="iconfont icon-right" @click='right'></span>
+            </div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    data: ['red', 'blue', 'green'],
+                    indexShow: 0,
+                    // slideOutLeft
+                    // slideInRight
+                    enter:'slideInRight',
+                    leave:'slideOutLeft'
+                }
+            },
+            methods: {
+                left() {
+                    this.enter='slideInRight',
+                    this.leave='slideOutLeft',
+                    this.indexShow--
+                    if(this.indexShow<0) this.indexShow=this.data.length-1
+                    console.log(this.indexShow)
+                },
+                right() {
+                    this.enter='slideInLeft',
+                    this.leave='slideOutRight',
+                    this.indexShow++
+                    if(this.indexShow>this.data.length-1) this.indexShow=0
+                    console.log(this.indexShow)
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>

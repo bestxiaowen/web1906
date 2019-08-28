@@ -21,6 +21,15 @@ button{
     cursor: pointer;
 }
 
+.icons{
+    padding-right: 5px;
+}
+
+.span{
+    user-select: none;
+    display:inline;
+}
+
 
 
 

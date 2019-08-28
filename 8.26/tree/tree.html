@@ -8,6 +8,7 @@
     <title>title</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" href="./tree.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
 </head>
 
 <body>
@@ -18,42 +19,67 @@
         Vue.component('Tree', {
             name: 'Tree',
             props: {
-                data:{
-                    type:Array
+                data: {
+                    type: Array
                 }
             },
             data() {
                 return {
-                    list:this.data
+                    list: this.data
                 }
             },
-            created () {
+            created() {
             },
             methods: {
-                add(i){
-                    console.log(i)
+                add(item) {
+                    // if (!item.children) item.children = []
+                    // console.log(item)
+                    // item.children.push({
+                    //     name: '222',
+                    //     id: 3
+                    // })
+                    // console.log(item)
+                    if (!item.children) {
+                        this.$set(item, 'children', [])
+                        item.children.push({
+                            name: '校长',
+                            childShow: false,
+                            id: 6
+                        })
+                        item.childShow = true
+                    } else {
+                        item.children.push({
+                            name: '小张',
+                            childShow: false,
+                            id: 6
+                        })
+                    }
+                    // console.log(item)
                 },
-                del(i){
-                    console.log(i)
+                del(item,i,list) {
+                    console.log(item,i,list)
+                    list.splice(i,1)
+                    console.log(item,i,list)
                 }
             },
             template: `
                 <ul>
-                    <li v-for="(item,index) in list">
+                    <li v-for="(item,index) in list" @click.stop='item.childShow=!item.childShow'>
                         <div>
                             <div>
-                                <span v-if='item.children'>></span>
-                                <div style="display:inline">{{item.name}}</div>
+                                <span v-if='item.id===1' class="iconfont icon-Floder icons"></span>
+                                <span v-if='item.id!=1' class="iconfont icon-file icons"></span>
+                                <div class='span'>{{item.name}}</div>
                             </div>
                             <div v-if='item.id===1'>
-                                <button @click='add(item,index)' class='parentBtn'>+</button>
+                                <button @click.stop='add(item,index)' class='parentBtn'>+</button>
                             </div>
                             <div v-if='item.id!=1'>
-                                <button @click='add' class='childAdd'>+</button>
-                                <button @click='del' class='childDel'>-</button>
+                                <button @click.stop='add(item,index)' class='childAdd'>+</button>
+                                <button @click.stop='del(item,index,list)' class='childDel'>-</button>
                             </div>
                         </div>
-                        <Tree  :data="item.children" />
+                        <Tree  :data="item.children" v-if='item.childShow' />
                     </li>
                 </ul>
             `,
@@ -63,60 +89,72 @@
             el: "#app",
             data() {
                 return {
-                    list:[
+                    list: [
                         {
-                            name:'parent',
-                            id:1,
-                            children:[
+                            name: 'parent',
+                            id: 1,
+                            childShow: true,
+                            children: [
                                 {
-                                    name:'child',
-                                    id:2
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
                                 },
                                 {
-                                    name:'child',
-                                    id:2
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
                                 },
                                 {
-                                    name:'child',
-                                    id:2
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
                                 }
                             ]
                         },
                         {
-                            name:'parent',
-                            id:1,
-                            children:[
+                            name: 'parent',
+                            id: 1,
+                            childShow: true,
+                            children: [
                                 {
-                                    name:'child',
-                                    id:2,
-                                    children:[
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
+                                    children: [
                                         {
-                                            name:'child',
-                                            id:3,
+                                            name: 'child',
+                                            id: 3,
+                                            childShow: false,
                                         },
                                         {
-                                            name:'child',
-                                            id:3,
+                                            name: 'child',
+                                            id: 3,
+                                            childShow: false,
                                         }
                                     ]
                                 },
                                 {
-                                    name:'child',
-                                    id:2
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
                                 }
                             ]
                         },
                         {
-                            name:'parent',
-                            id:1,
-                            children:[
+                            name: 'parent',
+                            id: 1,
+                            childShow: true,
+                            children: [
                                 {
-                                    name:'child',
-                                    id:2
+                                    name: 'child',
+                                    id: 2,
+                                    childShow: false,
                                 }
                             ]
                         }
-                    ]    
+                    ],
+
                 }
             },
             methods: {
