@@ -1,0 +1,49 @@
+.body{
+    display: flex;
+    align-items: center;
+}
+
+.wrap{
+    width: 400px;
+    background-color: #f3f3f3;
+    display: inline-block;
+    margin: 10px 8px;
+}
+
+.progress{
+    height: inherit;
+    background-color: #2d8cf0;
+}
+
+.normal{
+
+}
+
+.active{
+    background-color: #2d8cf0;
+}
+
+.wrong{
+    background-color: #ed4014;
+}
+
+.success{
+    background-color: #19be6b;
+}
+
+@keyframes progress {
+    from {
+        width:0;
+        opacity: 1;
+        background-color: white;
+    }
+    to {
+        background-color: white;
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+.enter{
+    animation: progress .5s linear;
+}

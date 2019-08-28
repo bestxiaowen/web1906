@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./progress.css">
+    <link rel="stylesheet" href="./icons.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        Vue.component('i-Progress', {
+            props: {
+                width: {
+                    type: Number,
+                    default: 10
+                },
+                percent: {
+                    type: Number,
+                    required: true
+                },
+                status: {
+                    type: String,
+                    default: 'normal'
+                }
+            },
+            data() {
+                return {
+                    iwidth: this.width,
+                    show: false
+                }
+            },
+            created() {
+                setInterval(() => {
+                    this.show = !this.show
+                }, 2000);
+            },
+            methods: {
+                cancelEnter() {
+                    this.show = false
+                }
+            },
+            template: `
+            <div class='body'>
+                <div
+                    :class="{
+                        wrap:true,
+                        
+                    }"
+                    :style="{
+                        height:iwidth+'px',
+                        borderRadius:iwidth/2+'px'
+                    }"
+                >
+                    <div
+                        :class="{
+                            progress:true,
+                            normal:status==='normal',
+                            active:status==='active',
+                            wrong:status==='wrong',
+                            success:status==='success',
+                        }"
+                        :style="{
+                            width:4*percent+'px',
+                            borderRadius:iwidth/2+'px'
+                        }"
+                    >
+                        <transition
+                            v-if="status==='active'"
+                            tag='div'
+                            enter-active-class='enter'
+                            @after-enter="cancelEnter"
+                        >
+                            <div
+                                v-show='show'
+                                :style="{
+                                    borderRadius:iwidth/2+'px',
+                                    height:'inherit'
+                                }"
+                            >
+                            </div>
+
+                        </transition>
+                    </div>
+
+                </div>
+                <span v-if="(status==='normal'||status==='active')&&percent!=100">{{percent}}%</span>
+                <span
+                    v-if="status==='wrong'"
+                    class='iconfont icon-error'
+                    :style="{
+                        color:'#ed4014',
+                        fontSize:width+'px'
+                    }"
+                ></span>
+                <span
+                    v-if="status==='success'||percent===100"
+                    class='iconfont icon-success'
+                    :style="{
+                        color:'#19be6b',
+                        fontSize:width+'px'
+                    }"
+                ></span>
+            </div>
+            `
+        })
+
+        // <transition-group
+        //     tag="div"
+        //     class="wrap"
+        //     :enter-active-class="enter"
+        //     :leave-active-class="leave"
+        // >
+        //     <div v-for="(item, index) in data" :key="item" v-if='index===indexShow' :style="{
+        //             'backgroundColor':item
+        //         }">
+        //     </div>
+        // </transition-group>
+
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    percent: 10,   // 百分比
+                    status: 'normal',   //  active,wrong,success  样式
+                    width: 10,  //进度条的线宽，单位 px
+                }
+            },
+            template: `
+            <div id="app">
+                <i-Progress :width='width' :percent='percent' :status='status' />
+                <i-Progress :width=10 :percent=30 status='active' />
+                <i-Progress :width=10 :percent=50 status='wrong' />
+                <i-Progress :width=10 :percent=80 status='success' />
+                <i-Progress :width=10 :percent=100 status='active' />
+            </div>
+            `
+        })
+    </script>
+</body>
+
+</html>
