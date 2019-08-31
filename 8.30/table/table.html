@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./table.js"></script>
+    <script src="../modal/modal.js"></script>
+    <link rel="stylesheet" href="../modal/modal.css">
+    <link rel="stylesheet" href="./table.css">
+    
+</head>
+<body>
+    <div id="app">
+    </div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    modal:false,
+                    email:'',
+                    iphone:'',
+                    name:'',
+                    index:0,
+                    column:[
+                        'name',
+                        'iphone',
+                        'email'
+                    ],
+                    data:[
+                        {
+                            name:'张三',
+                            iphone:123456789,
+                            email:'123456@qq.com'
+                        },
+                        {
+                            name:'李四',
+                            iphone:123456789,
+                            email:'123456@qq.com'
+                        },
+                        {
+                            name:'王五',
+                            iphone:123456789,
+                            email:'123456@qq.com'
+                        },
+                        {
+                            name:'老刘',
+                            iphone:123456789,
+                            email:'123456@qq.com'
+                        },
+                        {
+                            name:'略略略',
+                            iphone:123456789,
+                            email:'123456@qq.com'
+                        }
+                    ]
+                }
+            },
+            template:`
+            <div id="app">
+                <i-Table
+                    :column='column'
+                    :data='data'
+                >
+                    <template slot='btn' slot-scope='data'>
+                        <button @click='edit(data.data)'>编辑</button>
+                        <button @click='del(data)'>删除</button>
+                    </template>
+                </i-Table>
+
+                <modal
+                    v-model='modal'
+                    title='这是标题'
+                    @sure='sure'
+                    @cancle='cancle'
+                >
+                    姓名<input v-model='name' /> <br>
+                    邮箱<input v-model='email' /> <br>
+                    电话<input v-model='iphone' /> <br>
+                </modal>
+            </div>
+            `,
+            methods: {
+                sure(){
+                    let data=this.data[this.index]
+                    data.name=this.name
+                    data.email=this.email
+                    data.iphone=this.iphone
+                    // console.log()
+                    this.modal=false
+                },
+                cancle(){
+                    this.modal=false
+                },
+                edit(data){
+                    this.modal=true
+                    this.name=data[0].name
+                    this.email=data[0].email
+                    this.iphone=data[0].iphone
+                    this.index=data[1]
+                    console.log(data)
+                },
+                del(i){
+                    this.data.splice(i.data[1],1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

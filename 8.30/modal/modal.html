@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./modal.js"></script>
+    <link rel="stylesheet" href="./modal.css">
+</head>
+<body>
+    <div id="app"></div>
+
+
+    <script>
+        const app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    modal: false
+                }
+            },
+            template:`
+            <div id="app">
+                <button @click='modal=true'>显示模态框</button>
+                <modal
+                    v-model='modal'
+                    title='这是标题'
+                >
+                    <p>对话框内容</p>
+                    <p>对话框内容</p>
+                    <p>对话框内容</p>
+                </modal>
+            </div>
+
+            `
+        })
+    </script>
+</body>
+</html>

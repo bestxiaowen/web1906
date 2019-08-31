@@ -1,0 +1,26 @@
+.table{
+
+    border: 1px solid black;
+}
+
+.table>tr{
+    /* margin: 5px 45px; */
+    border: 1px solid black!important;
+    /* padding:  5px 45px; */
+    /* background-color: red; */
+    /* width: 1200px; */
+}
+
+.table th{
+    margin: 5px 45px;
+    padding: 5px 45px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.table td{
+    margin: 5px 45px;
+    padding: 5px 45px;
+    border: 1px solid black;
+    text-align: center;
+}
