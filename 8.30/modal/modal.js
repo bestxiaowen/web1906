@@ -41,9 +41,11 @@ Vue.component('modal', {
             this.show = !this.show
         },
         cancle(){
+            this.show = !this.show
             this.$emit('cancle')
         },
         sure(){
+            this.show = !this.show
             this.$emit('sure')
         }
     },
