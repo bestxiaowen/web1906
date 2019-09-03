@@ -47,13 +47,6 @@
                 data: {
                     bind(el, binding, vnode) {
                         // el.style.arg = binding.value.arg;
-                        console.log(el)
-                        console.log(binding)
-                        console.log(vnode)
-                        console.log(el.childNodes[0])
-                        console.log(el.width)
-
-
                         let defaultX = parseInt(binding.value)
 
 
@@ -62,21 +55,11 @@
                         let point = el.childNodes[0].childNodes[0]
 
                         point.addEventListener('mousedown', (e) => {
-                            console.log(e.target)
-                            
                             el.childNodes[0].style.transitionDuration = 0 + 's'
-                            // console.log(el)
-
                             function a(e) {
-                                // console.log(e.target)
                                 var x = e.clientX
-                                console.log(x)
-                                // console.log(e.target.width)
-                                // console.log(this)
-
                                 // swiper距离屏幕左边的距离
                                 var left = document.getElementsByClassName('swiper')[0].offsetLeft
-                                console.log(left)
                                 if (x - left > 300) {
                                     el.childNodes[0].style.width = 300
                                     if (vnode.context[binding.expression]) {
@@ -96,69 +79,28 @@
 
                                 }
                             }
-
                             document.addEventListener('mousemove', a)
                             document.addEventListener('mouseup', (e) => {
-                                console.log(1)
                                 document.removeEventListener('mousemove', a)
                             })
                         })
-
-
                         console.log(el.childNodes[0].childNodes[0])
-
                         el.addEventListener('click', (e) => {
-                            console.log(el.className)
-                            console.log(event.target)
-
                             el.childNodes[0].style.transitionDuration = 0.3 + 's'
-
-                            // el.childNodes[0].className='wrap duration'
-                            
-
                             var i = document.getElementsByClassName('swiper')
-                            console.log(i[0].offsetLeft)
-
                             if (e.target.className === 'point') {
                                 // alert(1)
                             } else {
                                 var x = e.offsetX
                                 var nowX = parseInt(x)
                                 var persent = parseInt(nowX / 3)
-
-                                console.log(this)
-                                console.log(x)
-                                console.log(nowX)
-                                console.log(e)
-                                console.log(event.target)
-                                console.log(e.srcElement.childNodes)
-                                // e.srcElement.childNodes[0].style.width='250px'
                                 el.childNodes[0].style.width = nowX + 'px'
 
 
                                 if (vnode.context[binding.expression]) {
-                                    console.log(vnode)
-                                    console.log(vnode.context[binding.expression])
-                                    console.log(persent)
                                     vnode.context[binding.expression] = persent
                                 }
-
-
                             }
-
-
-                            // if(el.className==='wrap'){
-                            //     // e.childNodes
-                            //     console.log(el.style.width)
-                            //     console.log(el.childNodes[0])
-                            //     console.log(111)
-                            // } else if(el.className==='swiper'){
-                            //     console.log(2222)
-                            // }
-
-
-
-                            // vnode.context
                         })
 
                     },
@@ -166,11 +108,7 @@
 
                     },
                     update(el, binding, vnode) {
-                        console.log(el)
-                        console.log(binding)
                         let defaultX = parseInt(binding.value)
-                        // if (defaultX > 100) defaultX = 100
-                        // if (defaultX < 0) defaultX = 0
                         el.childNodes[0].style.width = defaultX * 3 + 'px'
                     },
                     componentUpdated() {
