@@ -1,0 +1,181 @@
+<template>
+    <div>
+        <div
+            :class="{
+            'switch':true,
+            'switch-large':size==='large',
+            'switch-small':size==='small',
+            'switch-default':size==='default',
+            'switch-on':ivalue,
+            'disabled':disabled
+        }"
+            @click="ivalue=!ivalue"
+        >
+            <span :class="{
+                'switch-btn':true
+            }"></span>
+
+            <span class="on" v-if="ivalue">开</span>
+            <span class="off" v-if="!ivalue">关</span>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    props: {
+        value: {
+            type: Boolean,
+            default: true
+        },
+        size: {
+            type: String,
+            default: "default"
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
+    },
+    data() {
+        return {
+            ivalue: this.value
+        };
+    },
+    watch: {
+        ivalue(n) {
+            this.$emit("input", n);
+        }
+    }
+};
+</script>
+
+<style>
+.switch{
+    /* border-radius:  */
+    background-color: #515a6e;
+    /* background-color: #2d8cf0; */
+    /* padding: 0 1px; */
+    margin: 10px;
+    cursor: pointer;
+    transition: all .3s linear;
+    position: relative;
+}
+
+.switch-on{
+    background-color: #2d8cf0;
+}
+
+.switch-large{
+    width: 54px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.switch-default{
+    width: 42px;
+    height: 20px;
+    border-radius: 10px;
+}
+
+.switch-small{
+    width: 26px;
+    height: 12px;
+    border-radius: 6px;
+}
+
+.switch-btn{
+    display: block;
+    background-color: #fff;
+    border: 2px solid;
+    transition: all .3s ease-in-out;
+    
+}
+
+.switch-large.switch .switch-btn,
+.switch-default.switch .switch-btn{
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-top: 1px;
+    border: 2px solid #515a6e;
+    background-color: #fff;
+}
+
+.switch-on .switch-btn{
+    border: 2px solid #2d8cf0!important;
+}
+
+.switch-small.switch .switch-btn{
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 2px solid #515a6e;
+    background-color: #fff;
+}
+
+.switch-on.switch-default .switch-btn{
+    transform: translateX(22px)
+}
+
+.switch-on.switch-small .switch-btn{
+    transform: translateX(14px)
+}
+
+.switch-on.switch-large .switch-btn{
+    transform: translateX(34px)
+}
+
+.disabled{
+    /* pointer-events: none; */
+    opacity: .5;
+    cursor: no-drop;
+    pointer-events: none;
+}
+
+.on,
+.off{
+    position: absolute;
+    color: #fff;
+}
+
+.switch-large .on{
+    top: 0;
+    left: 13px;
+    font-size: 14px;
+}
+
+.switch-large .off{
+    top: 0;
+    right: 13px;
+    font-size: 14px;
+}
+
+.switch-small .on{
+    top: 0;
+    left: 6px;
+    font-size: 2px;
+}
+
+.switch-small .off{
+    top: 0;
+    right: 6px;
+    font-size: 2px;
+}
+
+.switch-default .on{
+    top: 2px;
+    left: 7px;
+    font-size: 12px;
+}
+
+.switch-default .off{
+    top: 2px;
+    right: 7px;
+    font-size: 12px;
+}
+
+span{
+    user-select: none;
+}
+</style>

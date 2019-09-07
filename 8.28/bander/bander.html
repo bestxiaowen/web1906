@@ -57,21 +57,16 @@
 
 <body>
     <div id="app">
-        <transition-group
-            tag="div"
-            class="wrap"
-            :enter-active-class="enter"
-            :leave-active-class="leave"
-        >
+        <transition-group tag="div" class="wrap" :enter-active-class="enter" :leave-active-class="leave">
             <div v-for="(item, index) in data" :key="item" v-if='index===indexShow' :style="{
                     'backgroundColor':item
                 }">
             </div>
         </transition-group>
-            <div class="wrap">
-                <span class="iconfont icon-left" @click='left'></span>
-                <span class="iconfont icon-right" @click='right'></span>
-            </div>
+        <div class="wrap">
+            <span class="iconfont icon-left" @click='left'></span>
+            <span class="iconfont icon-right" @click='right'></span>
+        </div>
     </div>
     <script>
         const app = new Vue({
@@ -82,23 +77,23 @@
                     indexShow: 0,
                     // slideOutLeft
                     // slideInRight
-                    enter:'slideInRight',
-                    leave:'slideOutLeft'
+                    enter: 'slideInRight',
+                    leave: 'slideOutLeft'
                 }
             },
             methods: {
                 left() {
-                    this.enter='slideInRight',
-                    this.leave='slideOutLeft',
-                    this.indexShow--
-                    if(this.indexShow<0) this.indexShow=this.data.length-1
+                    this.enter = 'slideInRight',
+                        this.leave = 'slideOutLeft',
+                        this.indexShow--
+                    if (this.indexShow < 0) this.indexShow = this.data.length - 1
                     console.log(this.indexShow)
                 },
                 right() {
-                    this.enter='slideInLeft',
-                    this.leave='slideOutRight',
-                    this.indexShow++
-                    if(this.indexShow>this.data.length-1) this.indexShow=0
+                    this.enter = 'slideInLeft',
+                        this.leave = 'slideOutRight',
+                        this.indexShow++
+                    if (this.indexShow > this.data.length - 1) this.indexShow = 0
                     console.log(this.indexShow)
                 }
             },
