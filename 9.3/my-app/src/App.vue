@@ -122,6 +122,7 @@ export default {
                 n = 100;
             } else if (n < 0) {
                 n = 0;
+                console.log(1)
             }
         }
     }
